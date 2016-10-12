@@ -110,6 +110,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="grid.h" />
+    <ClInclude Include="wordList.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="grid.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="wordList.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="input.txt" />
+    <Text Include="input15.txt" />
+    <Text Include="input250.txt" />
+    <Text Include="input30.txt" />
+    <Text Include="input50.txt" />
+    <Text Include="test.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
