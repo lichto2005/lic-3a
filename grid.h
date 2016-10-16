@@ -3,6 +3,7 @@
 #include <fstream>
 using namespace std;
 
+// grid class stores a word search grid in 2D char matrix
 class grid
 {
 public:

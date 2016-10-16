@@ -5,7 +5,7 @@
 #include <vector>
 using namespace std;
 
-
+//wordlist stores a list of words with methods to sort them
 class wordList
 {
 private:
