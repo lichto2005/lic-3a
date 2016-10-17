@@ -1,5 +1,5 @@
 #include "wordList.h"
-
+#include "heap.h"
 
 wordList::wordList()
 {
@@ -208,6 +208,14 @@ int wordList::hasWord(string word)
 	}
 	//if not found, return -1 to denote not in list
 	return -1;
+}
+
+void wordList::sortHeap()
+{
+	heap<string> myHeap(words);
+	myHeap.heapSort();
+	vector<string> sorted_words(myHeap.getHeap());
+	words = sorted_words;
 }
 
 //overloaded print operator prints the entire list

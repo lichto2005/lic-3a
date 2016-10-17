@@ -20,5 +20,6 @@ public:
 	void merge(int left, int middle, int right);
 	void sortMerge(int left, int right);
 	int hasWord(string word);
+	void sortHeap();
 };
 

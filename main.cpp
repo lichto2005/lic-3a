@@ -13,6 +13,8 @@ void search(int algorithm);
 //program start
 int main()
 {
+	cout << "Heap Sort\nType grid file name: ";
+	search(3);
 	// cout sort type, search with proper search parameter
 	cout << "Merge Sort\nType grid file name: ";
 	search(0);
@@ -163,6 +165,9 @@ void search(int algorithm)
 	// sort based on parameter
 	switch (algorithm)
 	{
+	case 3:
+		wl.sortHeap();
+		break;
 	case 2:
 		wl.sortInsertion();
 		break;
