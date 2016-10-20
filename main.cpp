@@ -13,6 +13,7 @@ void search(int algorithm);
 //program start
 int main()
 {
+
 	cout << "Heap Sort\nType grid file name: ";
 	search(3);
 	// cout sort type, search with proper search parameter
