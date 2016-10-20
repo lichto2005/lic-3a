@@ -181,7 +181,7 @@ void wordList::sortMerge(int left, int right)
 }
 
 //binary search method returns index of word in wordlist
-int wordList::hasWord(string word)
+bool wordList::inList(string word)
 {
 	//determine the left right and middle of the initial list
 	int left = 0, middle = (words.size() - 1) / 2, right = words.size() - 1;
@@ -189,7 +189,7 @@ int wordList::hasWord(string word)
 	while (left <= right)
 	{
 		//if the word is in the middle, return index of word
-		if (words.at(middle) == word) return middle;
+		if (words.at(middle) == word) return true;
 		//if word is in left portion
 		else if (words.at(middle) > word)
 		{
@@ -207,15 +207,18 @@ int wordList::hasWord(string word)
 		middle = (left + right) / 2;
 	}
 	//if not found, return -1 to denote not in list
-	return -1;
+	return false;
 }
 
 void wordList::sortHeap()
 {
-	heap<string> myHeap(words);
+	heap<string> myHeap;
+	myHeap.initializeMaxHeap(words);
 	myHeap.heapSort();
-	vector<string> sorted_words(myHeap.getHeap());
-	words = sorted_words;
+	for (int i = 0; i < words.size(); i++)
+	{
+		words.at(i) = myHeap.getItem(i);
+	}
 }
 
 //overloaded print operator prints the entire list

@@ -1,19 +1,21 @@
 //created in Visual Studio using Windows PC
 #include "wordList.h"
 #include "grid.h"
+#include "hashTable.h"
 #include <string>
 #include <iostream>
 #include <ctime>
 using namespace std;
 
 //declare global functions
-void findMatches(wordList wl, grid g);
+//void findMatches(wordList wl, grid g);
 void search(int algorithm);
 
 //program start
 int main()
 {
-
+	cout << "Hash Table\nType grid file name: ";
+	search(4);
 	cout << "Heap Sort\nType grid file name: ";
 	search(3);
 	// cout sort type, search with proper search parameter
@@ -27,7 +29,8 @@ int main()
 }
 
 // function to find matches from wl in g
-void findMatches(wordList wl, grid g)
+template<class T>
+void findMatches(T wl, grid g)
 {
 	cout << "---- FOUND WORDS ----\n";
 	//for each letter in the grid
@@ -44,14 +47,14 @@ void findMatches(wordList wl, grid g)
 			// concat a string with the next letter to the right
 			s_forward = s_forward + (g.matrix[row][(col + len) % g.columns]);
 			// see if it matches a word
-			if (wl.hasWord(s_forward) != -1 && s_forward.length() >= 5)
+			if (wl.inList(s_forward) == true && s_forward.length() >= 5)
 			{
 				cout << s_forward << endl;
 			}
 			// check from right to left by reversing string
 			string s_backward = string(s_forward.rbegin(), s_forward.rend());
 			// see if it matches a word
-			if (wl.hasWord(s_backward) != -1 && s_backward.length() >= 5)
+			if (wl.inList(s_backward) == true && s_backward.length() >= 5)
 			{
 				cout << s_backward << endl;
 			}
@@ -59,14 +62,14 @@ void findMatches(wordList wl, grid g)
 			// concat a string with the next letter up
 			s_up = s_up + (g.matrix[(row + len) % g.rows][col]);
 			// see if it matches a word
-			if (wl.hasWord(s_up) != -1 && s_up.length() >= 5)
+			if (wl.inList(s_up) == true && s_up.length() >= 5)
 			{
 				cout << s_up << endl;
 			}
 			// check the down direction by reversing string
 			string s_down = string(s_up.rbegin(), s_up.rend());
 			// see if it matches a word
-			if (wl.hasWord(s_down) != -1 && s_down.length() >= 5)
+			if (wl.inList(s_down) == true && s_down.length() >= 5)
 			{
 				cout << s_down << endl;
 			}
@@ -81,14 +84,14 @@ void findMatches(wordList wl, grid g)
 			// concat the next letter
 			s_up_right += g.matrix[j][k];
 			// check if word
-			if (wl.hasWord(s_up_right) != -1 && s_up_right.length() >= 5)
+			if (wl.inList(s_up_right) == true && s_up_right.length() >= 5)
 			{
 				cout << s_up_right << endl;
 			}
 			// reverse string to check down-left
 			string s_down_left = string(s_up_right.rbegin(), s_up_right.rend());
 			// check if word
-			if (wl.hasWord(s_down_left) != -1 && s_down_left.length() >= 5)
+			if (wl.inList(s_down_left) == true && s_down_left.length() >= 5)
 			{
 				cout << s_down_left << endl;
 			}
@@ -119,14 +122,14 @@ void findMatches(wordList wl, grid g)
 			//add the next letter
 			s_down_right += g.matrix[j][k];
 			//check if word
-			if (wl.hasWord(s_down_right) != -1 && s_down_right.length() >= 5)
+			if (wl.inList(s_down_right) == true && s_down_right.length() >= 5)
 			{
 				cout << s_down_right << endl;
 			}
 			//reverse string to check up-left
 			string s_up_left = string(s_down_right.rbegin(), s_down_right.rend());
 			//check if word
-			if (wl.hasWord(s_up_left) != -1 && s_up_left.length() >= 5)
+			if (wl.inList(s_up_left) == true && s_up_left.length() >= 5)
 			{
 				cout << s_up_left << endl;
 			}
@@ -162,10 +165,17 @@ void search(int algorithm)
 	//open wordlist
 	wordList wl;
 	wl.readWords("wordlist2.txt");
+	hashTable<string> myHash(29959); // prime not near a pow(2), and made such that we expect avg 3 collisions
 	clock_t begin = clock();
 	// sort based on parameter
 	switch (algorithm)
 	{
+	case 4:
+		for (int i = 0; i < wl.words.size(); i++)
+		{
+			myHash.addItem(wl.words.at(i));
+		}
+		break;
 	case 3:
 		wl.sortHeap();
 		break;
@@ -184,10 +194,11 @@ void search(int algorithm)
 	}
 	clock_t end = clock();
 	double runtime = double(end - begin) / CLOCKS_PER_SEC;
-	cout << wl;
+	//if (algorithm != 4) cout << wl;
 	clock_t begin2 = clock();
 	//call function that finds the words
-	findMatches(wl, g);
+	if (algorithm != 4) findMatches(wl, g);
+	else findMatches(myHash, g);
 	clock_t end2 = clock();
 	double runtime2 = double(end2 - begin2) / CLOCKS_PER_SEC;
 	//print out run times

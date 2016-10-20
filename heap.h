@@ -9,19 +9,17 @@ private:
 
 public:
 	heap<T>();
-	heap<T>(vector<T> h);
 
 	int parent(int child);
 	int left(int parent);
 	int right(int parent);
 	T getItem(int n);
-	vector<T> getHeap();
 
-	void initializeMaxHeap();
+	void initializeMaxHeap(vector<T> list);
 	void maxHeapify(int i);
 	void buildMaxHeap();
 
-	void initializeMinHeap();
+	void initializeMinHeap(vector<T> list);
 	void minHeapify(int i);
 	void buildMinHeap();
 
@@ -31,13 +29,6 @@ public:
 template<class T>
 heap<T>::heap()
 {
-
-}
-
-template<class T>
-heap<T>::heap(vector<T> data)
-{
-	h = data;
 }
 
 template<class T>
@@ -65,15 +56,10 @@ T heap<T>::getItem(int n)
 }
 
 template<class T>
-vector<T> heap<T>::getHeap()
+void heap<T>::initializeMaxHeap(vector<T> list)
 {
-	return h;
-}
-
-template<class T>
-void heap<T>::initializeMaxHeap()
-{
-	heapsize = h.size();
+	h = list;
+	buildMaxHeap();
 }
 
 template<class T>
@@ -108,7 +94,7 @@ void heap<T>::maxHeapify(int i)
 template<class T>
 void heap<T>::buildMaxHeap()
 {
-	initializeMaxHeap();
+	heapsize = h.size();
 	for (int i = h.size() / 2 - 1; i >= 0; i--)
 	{
 		maxHeapify(i);
@@ -131,9 +117,10 @@ void heap<T>::heapSort()
 }
 
 template<class T>
-void heap<T>::initializeMinHeap()
+void heap<T>::initializeMinHeap(vector<T> list)
 {
-	heapsize = h.size();
+	h = list;
+	buildMinHeap();
 }
 
 template<class T>
@@ -168,7 +155,7 @@ void heap<T>::minHeapify(int i)
 template<class T>
 void heap<T>::buildMinHeap()
 {
-	initializeMinHeap();
+	heapsize = h.size();
 	for (int i = h.size() / 2 - 1; i >= 0; i--)
 	{
 		minHeapify(i);

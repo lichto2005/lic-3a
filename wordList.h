@@ -8,9 +8,8 @@ using namespace std;
 //wordlist stores a list of words with methods to sort them
 class wordList
 {
-private:
-	vector<string> words;
 public:
+	vector<string> words;
 	wordList();
 	~wordList();
 	void readWords(const string& fileName);
@@ -19,7 +18,7 @@ public:
 	void sortQuick(int left, int right);
 	void merge(int left, int middle, int right);
 	void sortMerge(int left, int right);
-	int hasWord(string word);
+	bool inList(string word);
 	void sortHeap();
 };
 
