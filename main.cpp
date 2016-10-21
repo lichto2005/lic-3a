@@ -28,7 +28,8 @@ int main()
 	return 0;
 }
 
-// function to find matches from wl in g
+// template function takes in a list of words stored in data type T
+// assumes T has the function bool T::inList(item)
 template<class T>
 void findMatches(T wl, grid g)
 {
@@ -171,6 +172,7 @@ void search(int algorithm)
 	switch (algorithm)
 	{
 	case 4:
+		//if using hash, add all the words from wl into hashtable
 		for (int i = 0; i < wl.words.size(); i++)
 		{
 			myHash.addItem(wl.words.at(i));
@@ -194,7 +196,8 @@ void search(int algorithm)
 	}
 	clock_t end = clock();
 	double runtime = double(end - begin) / CLOCKS_PER_SEC;
-	//if (algorithm != 4) cout << wl;
+	// print sorted words if using a sort function
+	if (algorithm != 4) cout << wl;
 	clock_t begin2 = clock();
 	//call function that finds the words
 	if (algorithm != 4) findMatches(wl, g);

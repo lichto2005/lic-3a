@@ -212,6 +212,7 @@ bool wordList::inList(string word)
 
 void wordList::sortHeap()
 {
+	//make a heap, heapify it, sort it, copy words back to the vector
 	heap<string> myHeap;
 	myHeap.initializeMaxHeap(words);
 	myHeap.heapSort();
